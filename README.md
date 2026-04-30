@@ -35,16 +35,16 @@ hallucination-guard scan --path ./other/project --json
   AI HALLUCINATION GUARD — Scan Results
 ═══════════════════════════════════════════
 
-📦 PACKAGES (23 checked)
+[PACKAGES] (23 checked)
 
-  ✗ fake-axios           [NOT ON REGISTRY] — did you mean axios?
-  ⚠ request              [DEPRECATED] — Use node-fetch or got instead. Latest: got@14.0
-  ⚠ lodash               [OUTDATED] v3.10.0 installed, v4.17.21 available
-  ✓ express              v4.18.2 — ok
+  x fake-axios           [NOT ON REGISTRY] — did you mean axios?
+  ! request              [DEPRECATED] — Use node-fetch or got instead. Latest: got@14.0
+  ! lodash               [OUTDATED] v3.10.0 installed, v4.17.21 available
+  ok express             v4.18.2 — ok
 
-🔍 METHOD CALLS
+[METHOD CALLS]
 
-  ✗ src/db/user.ts:42    prisma.softDelete() — method does not exist on prisma@5.x
+  x src/db/user.ts:42    prisma.softDelete() — method does not exist on prisma@5.x
      → Suggestion: use prisma.delete() instead
 
 ═══════════════════════════════════════════
