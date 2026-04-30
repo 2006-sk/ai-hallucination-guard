@@ -1,6 +1,5 @@
-#!/usr/bin/env node
 import { Command } from "commander";
-import { existsSync, realpathSync } from "node:fs";
+import { existsSync, realpathSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -11,6 +10,19 @@ import { checkAllNpmPackages } from "./checkers/npm.js";
 import { checkAllPypiPackages } from "./checkers/pypi.js";
 import { scanDirectory } from "./checkers/methods.js";
 import { printReport } from "./reporters/console.js";
+
+function readVersionFromNearestPackageJson(): string | undefined {
+  try {
+    const here = fileURLToPath(import.meta.url);
+    const distDir = resolve(here, "..");
+    const pkgPath = resolve(distDir, "..", "package.json");
+    const raw = readFileSync(pkgPath, "utf8");
+    const parsed = JSON.parse(raw) as { version?: unknown };
+    return typeof parsed?.version === "string" ? parsed.version : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 function printNoManifestHelp(targetDir: string): void {
   process.stderr.write(
@@ -90,6 +102,8 @@ export interface CliOptions {
 export async function runCli(_argv: string[] = process.argv): Promise<void> {
   const program = new Command();
   program.name("hallucination-guard").description("Detect hallucinated packages and method calls.");
+  const v = readVersionFromNearestPackageJson();
+  if (v) program.version(v);
 
   program
     .command("scan")

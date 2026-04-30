@@ -28,7 +28,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --clean",
+    "build": "tsup && chmod +x dist/index.js",
     "dev": "tsup src/index.ts --format esm --dts --watch",
     "prepublishOnly": "npm run build && npm test",
     "test": "vitest run",
