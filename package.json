@@ -1,6 +1,6 @@
 {
   "name": "ai-hallucination-guard",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Detects AI-hallucinated package names and method calls in your codebase",
   "license": "MIT",
   "type": "module",
