@@ -137,14 +137,19 @@ export async function runCli(_argv: string[] = process.argv): Promise<void> {
       const hasPyproject = existsSync(pyprojectPath);
       const hasAnyManifest = hasPkgJson || hasReqTxt || hasPyproject;
 
+      const hasNpmManifest = hasPkgJson;
+      const hasPythonManifest = hasReqTxt || hasPyproject;
+
       const anyFlag = opts.npm || opts.python || opts.methods;
 
-      const shouldNpm = (anyFlag ? opts.npm : true) && hasPkgJson;
-      const shouldPython = (anyFlag ? opts.python : true) && (hasReqTxt || hasPyproject);
+      const shouldNpm = (anyFlag ? opts.npm : hasNpmManifest) && hasNpmManifest;
+      const shouldPython = (anyFlag ? opts.python : hasPythonManifest) && hasPythonManifest;
       const shouldMethods = anyFlag ? opts.methods : true;
 
-      const wantsNpm = anyFlag ? opts.npm : true;
-      const wantsPython = anyFlag ? opts.python : true;
+      // Flags override auto-detection; missing-manifest errors should only apply
+      // when the user explicitly asked for that ecosystem scan.
+      const wantsNpm = anyFlag ? opts.npm : hasNpmManifest;
+      const wantsPython = anyFlag ? opts.python : hasPythonManifest;
       const wantsPackageChecks = wantsNpm || wantsPython;
 
       if (!hasAnyManifest && wantsPackageChecks && !opts.methods) {
@@ -153,7 +158,7 @@ export async function runCli(_argv: string[] = process.argv): Promise<void> {
         return;
       }
 
-      if (wantsNpm && !hasPkgJson && !opts.methods) {
+      if (opts.npm && !hasPkgJson && !opts.methods) {
         process.stderr.write(
           `No package.json found in "${targetDir}" (needed for --npm / default npm scan).\n`,
         );
@@ -161,7 +166,7 @@ export async function runCli(_argv: string[] = process.argv): Promise<void> {
         return;
       }
 
-      if (wantsPython && !hasReqTxt && !hasPyproject && !opts.methods) {
+      if (opts.python && !hasReqTxt && !hasPyproject && !opts.methods) {
         process.stderr.write(
           `No requirements.txt or pyproject.toml found in "${targetDir}" (needed for --python / default python scan).\n`,
         );
