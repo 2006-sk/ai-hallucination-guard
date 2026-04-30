@@ -1,0 +1,54 @@
+{
+  "name": "ai-hallucination-guard",
+  "version": "0.0.0",
+  "description": "Detects AI-hallucinated package names and method calls in your codebase",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOURUSERNAME/ai-hallucination-guard.git"
+  },
+  "homepage": "https://github.com/YOURUSERNAME/ai-hallucination-guard",
+  "bugs": {
+    "url": "https://github.com/YOURUSERNAME/ai-hallucination-guard/issues"
+  },
+  "keywords": [
+    "ai",
+    "hallucination",
+    "security",
+    "npm",
+    "pypi",
+    "cli",
+    "developer-tools"
+  ],
+  "bin": {
+    "hallucination-guard": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --dts --watch",
+    "prepublishOnly": "npm run build && npm test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ci": "vitest run --coverage --reporter=verbose",
+    "test:ui": "vitest --ui"
+  },
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "memfs": "^4.57.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
