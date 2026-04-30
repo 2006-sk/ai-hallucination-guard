@@ -1,16 +1,16 @@
 {
   "name": "ai-hallucination-guard",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Detects AI-hallucinated package names and method calls in your codebase",
   "license": "MIT",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOURUSERNAME/ai-hallucination-guard.git"
+    "url": "https://github.com/2006-sk/ai-hallucination-guard.git"
   },
-  "homepage": "https://github.com/YOURUSERNAME/ai-hallucination-guard",
+  "homepage": "https://github.com/2006-sk/ai-hallucination-guard",
   "bugs": {
-    "url": "https://github.com/YOURUSERNAME/ai-hallucination-guard/issues"
+    "url": "https://github.com/2006-sk/ai-hallucination-guard/issues"
   },
   "keywords": [
     "ai",
